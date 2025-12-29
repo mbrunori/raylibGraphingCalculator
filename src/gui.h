@@ -5,7 +5,7 @@
 
 #define menuFontSize 28
 #define graphicFontSize 16
-#define MAX_FUNCTIONS 7
+#define MAX_FUNCTIONS 6
 
 #define PARAM_COUNT 4
 #define BUFFER_SIZE 32

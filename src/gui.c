@@ -187,7 +187,7 @@ void inputScene(Scene *nextScene, char ***expressions, int *count)
             buffer[0] = '\0';
             editing = false;
         }
-        
+
         if (IsKeyPressed(KEY_BACKSPACE) && strlen(buffer) > 0)
         {
             buffer[strlen(buffer) - 1] = '\0';
@@ -199,6 +199,7 @@ void inputScene(Scene *nextScene, char ***expressions, int *count)
     // ──────────────────────────────
     // navigation
     // ──────────────────────────────
+    DrawText("Insert desired functions", 10, 8, 20, BLACK);
     for (int i = 0; i < *count; i++)
     {
         Color color = palette[i % paletteSize];
@@ -207,14 +208,14 @@ void inputScene(Scene *nextScene, char ***expressions, int *count)
         // highlights selected line
         if (isSelected)
         {
-            DrawRectangle(10, 5 + 30 * i, 700, 28, Fade(LIGHTGRAY, 0.4f));
+            DrawRectangle(15, 33 + 30 * i, 700, 28, Fade(LIGHTGRAY, 0.4f));
         }
 
         char label[16];
         snprintf(label, sizeof(label), "Y%d =", i + 1);
 
-        DrawText(label, 20, 10 + 30 * i, 20, color);
-        DrawText((*expressions)[i], 80, 10 + 30 * i, 20, color);
+        DrawText(label, 20, 38 + 30 * i, 20, color);
+        DrawText((*expressions)[i], 80, 38 + 30 * i, 20, color);
     }
 
     if (IsKeyPressed(KEY_DOWN))
@@ -317,18 +318,30 @@ void vWindowScene(Scene *nextScene)
     for (int i = 0; i < 4; i++)
     {
         bool isSelected = (i == selected);
-        Color color = isSelected ? LIGHTGRAY : DARKGRAY;
-
-        DrawText(labels[i], 10, 40 + 30 * i, 20, color);
+        Color color = BLACK;
 
         char valText[32];
-        if (isSelected && editing)
-            DrawText(buffer, 80, 40 + 30 * i, 20, BLACK);
-        else
+
+        snprintf(valText, sizeof(valText), "%.2f", *vars[i]);
+
+        if (isSelected)
         {
-            snprintf(valText, sizeof(valText), "%.2f", *vars[i]);
-            DrawText(valText, 80, 40 + 30 * i, 20, BLACK);
+            int textWidth = MeasureText(labels[i], menuFontSize) + MeasureText(valText, menuFontSize);
+            DrawRectangle(5, 40 + 30 * i, textWidth + 2, menuFontSize, SKYBLUE);
         }
+        DrawText(labels[i], 10, 40 + 30 * i, 20, color);
+
+        if (isSelected && editing)
+        {
+            DrawText(buffer, 80, 40 + 30 * i, 20, BLACK);
+            if ((int)GetTime() % 2 == 0)
+            {
+                DrawText("|", 80 + (MeasureText(buffer, menuFontSize)*0.8), 40 + 30 * i, 20, BLACK);
+            }
+        }
+
+        else
+            DrawText(valText, 80, 40 + 30 * i, 20, BLACK);
     }
 }
 
