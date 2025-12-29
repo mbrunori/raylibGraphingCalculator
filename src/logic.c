@@ -537,6 +537,7 @@ int findIntSects(char *func1, char *func2, Vector2 *intersections)
     return count;
 }
 
+//generally finds intersection with axis (unique function for both axis)
 int findAxisIntersections(char *func, Vector2 roots[], bool isXAxis)
 {
     float funcValue, prevValue;
@@ -544,6 +545,9 @@ int findAxisIntersections(char *func, Vector2 roots[], bool isXAxis)
     bool inZeroZone = false;
     bool prevWasNaN = false;
 
+    //computes intersections with x axis
+    //double algorithm: first looks for sign changes in the function values
+    //if no result, it looks for tangents using a range
     if (isXAxis)
     {
         prevValue = evaluateRPN(func, xMin);
@@ -593,19 +597,18 @@ int findAxisIntersections(char *func, Vector2 roots[], bool isXAxis)
         return count;
     }
 
-    else // Y-Intercepts
+    //Computes intersections with Y axis
+    //Calculates the value of f(0) and saves it in a Vector2: (0, f(0))
+    else 
     {
-        float yInterceptX = 0.0f;
-
-        // Only compute Y-intercept if X=0 is inside the graph range
-        if (yInterceptX >= xMin && yInterceptX <= xMax)
+        if (0.0 >= xMin && 0.0 <= xMax) //only if x=0 is in the view range
         {
-            funcValue = evaluateRPN(func, yInterceptX); // f(0)
+            funcValue = evaluateRPN(func, 0.0); //f(0)
 
             if (!isnan(funcValue))
             {
                 // The Y-intercept point is (0, f(0))
-                roots[count++] = (Vector2){yInterceptX, funcValue};
+                roots[count++] = (Vector2){0.0, funcValue};
             }
         }
 
