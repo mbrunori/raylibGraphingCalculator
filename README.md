@@ -12,7 +12,7 @@ It also features **variable scaling** and can compute **intersections** between 
 - Intersection detection between two functions  
 
 ## Installation
-You can download the [game.exe](graphingCalculator.exe) file if you only want to run the program.  
+**For Windows**: You can download the [graphingCalculator.exe](graphingCalculator.exe) file if you only want to run the program.  
 To edit the source code, download the [latest release](https://github.com/fibonacci73/raylibGraphingCalculator/releases/tag/v0.1.0) and edit the [Makefile](Makefile) by inserting your raylib installation path (e.g.  
 `RAYLIB_PATH ?= C://raylib/raylib`).
 
