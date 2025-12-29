@@ -187,6 +187,11 @@ void inputScene(Scene *nextScene, char ***expressions, int *count)
             buffer[0] = '\0';
             editing = false;
         }
+        
+        if (IsKeyPressed(KEY_BACKSPACE) && strlen(buffer) > 0)
+        {
+            buffer[strlen(buffer) - 1] = '\0';
+        }
 
         return;
     }
