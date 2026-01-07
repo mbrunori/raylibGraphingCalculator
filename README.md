@@ -11,10 +11,16 @@ It also features **variable scaling** and can compute **intersections** between 
 - Adjustable viewing window and scale  
 - Intersection detection between two functions  
 
-## Installation
-**For Windows**: You can download the [graphingCalculator.exe](graphingCalculator.exe) file if you only want to run the program.  
-To edit the source code, download the [latest release](https://github.com/fibonacci73/raylibGraphingCalculator/releases/tag/v0.1.0) and edit the [Makefile](Makefile) by inserting your raylib installation path (e.g.  
-`RAYLIB_PATH ?= C://raylib/raylib`).
+## Requirements
+- **C compiler** (gcc or clang)
+- **raylib** (installed on your system)
+- **pkg-config**
+- **make**
+
+## Build Instructions
+
+After cloning the repository, you can use the following command:  
+`mingw32-make` to build the file (be sure to have a obj folder in your main folder)
 
 ## How to Use
 When you open the application, navigate the menus using the **arrow keys**, **Enter**, and **Esc**.  

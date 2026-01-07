@@ -1,6 +1,6 @@
 # ignore build artifacts
-obj/
-*.o
+obj/.o
+*graphingCalculator.exe
 
 # ignore IDE settings
 .vscode/
