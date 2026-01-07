@@ -1,5 +1,5 @@
 # ignore build artifacts
-obj/.o
+.obj/
 *graphingCalculator.exe
 
 # ignore IDE settings
