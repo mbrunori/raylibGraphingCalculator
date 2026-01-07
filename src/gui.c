@@ -167,13 +167,20 @@ void inputScene(Scene *nextScene, char ***expressions, int *count)
         }
     }
 
-    // ──────────────────────────────
     // editing
-    // ──────────────────────────────
     if (editing)
     {
         readExpression(buffer);
-        DrawText(buffer, 40, 10, 20, palette[selected % paletteSize]);
+
+        //label: Y1= ...
+        char *label = malloc(sizeof(char) * 8);
+        snprintf(label, sizeof(label), "Y%d =", selected + 1);
+
+        Color color = palette[selected % paletteSize];
+
+        //draws text
+        DrawText(label, 20, 10, 20, color);
+        DrawText(buffer, 65, 10, 20, palette[selected % paletteSize]);
 
         if (IsKeyPressed(KEY_ENTER))
         {
@@ -195,10 +202,8 @@ void inputScene(Scene *nextScene, char ***expressions, int *count)
 
         return;
     }
-
-    // ──────────────────────────────
+    
     // navigation
-    // ──────────────────────────────
     DrawText("Insert desired functions", 10, 8, 20, BLACK);
     for (int i = 0; i < *count; i++)
     {
