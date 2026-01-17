@@ -2,11 +2,11 @@
 
 ## Description
 This is a work-in-progress **graphing calculator** written in C and built with [raylib](https://www.raylib.com/).  
-It can draw up to **seven functions** and supports **sin, cos, tan, square roots, absolute values, addition, subtraction, multiplication and division**.  
+It can draw up to **six functions** and supports **sin, cos, tan, square roots, absolute values, addition, subtraction, multiplication and division**.  
 It also features **variable scaling** and can compute **intersections** between any two functions.
 
 ## Features
-- Plot up to **7 functions** simultaneously  
+- Plot up to **6 functions** simultaneously  
 - Support for basic trigonometric functions, arithmetic operations, square roots and absolute values  
 - Adjustable viewing window and scale  
 - Intersection detection between two functions  
@@ -18,8 +18,7 @@ It also features **variable scaling** and can compute **intersections** between 
 - **make**
 
 ## Build Instructions
-
-After cloning the repository, you can use the following command:  
+after cloning the repository, edit the makefile with your raylib installation path after that you can use the following command:  
 `mingw32-make` to build the file (be sure to have a obj folder in your main folder)
 
 ## How to Use
