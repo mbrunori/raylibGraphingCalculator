@@ -37,6 +37,7 @@ void graphicScene(Scene *nextScene, int functionsNumber, char **expressions)
 
     for (int i = 0; i < functionsNumber; i++)
     {
+        addExplicitMult(&expressions[i]);
         parsed = shuntingYard(expressions[i]);
         if (parsed[0] != '\0')
         {

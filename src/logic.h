@@ -2,7 +2,7 @@
 #define LOGIC_H
 
 #include "raylib.h"
-#include "../lib/shuntingYard/shuntingYard.h"
+#include "./lib/shuntingYard/shuntingYard.h"
 
 #include <stdlib.h>
 #include <string.h>

@@ -2,7 +2,7 @@
 #define GUI_H
 
 #include "logic.h"
-#include "../lib/shuntingYard/shuntingYard.h"
+#include "./lib/shuntingYard/shuntingYard.h"
 
 #include <string.h>
 #include <stdio.h>

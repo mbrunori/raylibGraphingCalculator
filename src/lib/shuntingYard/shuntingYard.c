@@ -323,3 +323,33 @@ char* shuntingYard(const char* str)
     memcpy(res, out.out, out.len + 1);
     return res;
 }
+
+void addExplicitMult(char **str) 
+{
+    if (!str || !*str) return;
+
+    size_t len = strlen(*str);
+    char *input = *str;
+
+    // worst case: every character needs a '*', so double size
+    char *newStr = malloc(len * 2 + 1);
+    if (!newStr) return;
+
+    size_t j = 0;
+    for (size_t i = 0; i < len; i++) {
+        char curr = input[i];
+        char next = (i + 1 < len) ? input[i + 1] : '\0';
+
+        newStr[j++] = curr;
+
+        if ((isdigit(curr) || isalpha(curr) || curr == ')') &&
+            (isdigit(next) || isalpha(next) || next == '(')) {
+            newStr[j++] = '*';
+        }
+    }
+
+    newStr[j] = '\0';
+
+    free(*str);
+    *str = newStr;
+}

@@ -34,4 +34,6 @@ int rightAssociative(char op);
 int isIdentStart(unsigned char c);
 char* shuntingYard(const char* str);
 
+void addExplicitMult(char **str);
+
 #endif
