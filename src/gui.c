@@ -1,8 +1,5 @@
 #include "gui.h"
-#include "logic.h"
 
-#include <string.h>
-#include <stdio.h>
 
 const char *scenesName[menuScenesNum] = {"1. Graphic", "2. Exit"};
 const char *gSolveOptionsName[gSolveOptions] = {"1. Intersect", "2. Roots", "3. Y-Intercepts"};
@@ -34,13 +31,13 @@ void graphicScene(Scene *nextScene, int functionsNumber, char **expressions)
 {
     Color palette[] = {RED, GREEN, BLUE, ORANGE, PURPLE};
     const int paletteSize = sizeof(palette) / sizeof(palette[0]);
-    char parsed[EXPRESSION_BUFFER];
+    char* parsed = malloc(sizeof(char) * EXPRESSION_BUFFER);
 
     drawAxes();
 
     for (int i = 0; i < functionsNumber; i++)
     {
-        shuntingYard(expressions[i], parsed);
+        parsed = shuntingYard(expressions[i]);
         if (parsed[0] != '\0')
         {
             drawFunction(parsed, palette[i % paletteSize]);
@@ -433,10 +430,10 @@ void gSolveScene(Scene *nextScene, int *count, char ***expressions)
             {
                 if (calcJustEntered)
                 {
-                    char func1RPN[MAX_TOKENS];
-                    char func2RPN[MAX_TOKENS];
-                    shuntingYard((*expressions)[intSectFuncs[0]], func1RPN);
-                    shuntingYard((*expressions)[intSectFuncs[1]], func2RPN);
+                    char* func1RPN = malloc(sizeof(char) * MAX_TOKENS);
+                    char* func2RPN = malloc(sizeof(char) * MAX_TOKENS);;
+                    func1RPN = shuntingYard((*expressions)[intSectFuncs[0]]);
+                    func2RPN = shuntingYard((*expressions)[intSectFuncs[1]]);
 
                     intsectsNum = findIntSects(func1RPN, func2RPN, intersections);
                     calcJustEntered = false;
@@ -509,8 +506,8 @@ void gSolveScene(Scene *nextScene, int *count, char ***expressions)
             {
                 if (computeRoots)
                 {
-                    char funcRootRPN[MAX_TOKENS];
-                    shuntingYard((*expressions)[hovered], funcRootRPN);
+                    char* funcRootRPN = malloc(sizeof(char) * MAX_TOKENS);
+                    funcRootRPN = shuntingYard((*expressions)[hovered]);
 
                     rootCount = findAxisIntersections(funcRootRPN, roots, true);
                 }
@@ -587,8 +584,8 @@ void gSolveScene(Scene *nextScene, int *count, char ***expressions)
             {
                 if (computeYSepts)
                 {
-                    char funcYSeptRPN[MAX_TOKENS];
-                    shuntingYard((*expressions)[hovered], funcYSeptRPN);
+                    char* funcYSeptRPN = malloc(sizeof(char) * MAX_TOKENS);
+                    funcYSeptRPN = ((*expressions)[hovered]);
 
                     YSeptCount = findAxisIntersections(funcYSeptRPN, Ycepts, false);
                 }

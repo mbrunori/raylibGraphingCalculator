@@ -2,6 +2,10 @@
 #define GUI_H
 
 #include "logic.h"
+#include "../lib/shuntingYard/shuntingYard.h"
+
+#include <string.h>
+#include <stdio.h>
 
 #define menuFontSize 28
 #define graphicFontSize 16

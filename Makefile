@@ -352,9 +352,9 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 # Define all object files from source files
-SRC = ./src/main.c ./src/gui.c ./src/logic.c
+SRC = ./src/main.c ./src/gui.c ./src/logic.c ./src/lib/shuntingYard/shuntingYard.c
 #OBJS = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-OBJS =  ./obj/main.o ./obj/gui.o ./obj/logic.o
+OBJS =  ./obj/main.o ./obj/gui.o ./obj/logic.o ./obj/lib/shuntingYard/shuntingYard.o
 
 # For Android platform we call a custom Makefile.Android
 ifeq ($(PLATFORM),PLATFORM_ANDROID)

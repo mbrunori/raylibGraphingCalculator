@@ -2,6 +2,7 @@
 #define LOGIC_H
 
 #include "raylib.h"
+#include "../lib/shuntingYard/shuntingYard.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -26,14 +27,9 @@
 extern float xMin, xMax, yMin, yMax, step;
 
 int readExpression(char *expression);
-
-void addExplicitMultiplication(char *string);
-bool isOperator(char c);
-bool isFunction(const char *str);
 int precedence(char op);
 
 double evaluateRPN(const char *rpn, double xValue);
-void shuntingYard(char *input, char *output);
 
 int findIntSects(char* func1, char* func2, Vector2* intersections);
 int findAxisIntersections(char* func, Vector2 roots[], bool isXAxis);
