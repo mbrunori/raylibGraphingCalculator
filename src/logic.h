@@ -16,10 +16,6 @@
 #define MAX_TOKENS 256
 #define STEP 0.001
 
-#define screenWidth 480
-#define screenHeight 320
-#define screenScale 0.66f
-
 #define MAX_INTERSECTIONS 32
 #define REFINE_STEPS 3 
 
@@ -33,5 +29,7 @@ double evaluateRPN(const char *rpn, double xValue);
 
 int findIntSects(char* func1, char* func2, Vector2* intersections);
 int findAxisIntersections(char* func, Vector2 roots[], bool isXAxis);
+
+bool blinkingCursor();
 
 #endif

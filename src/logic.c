@@ -316,3 +316,8 @@ int findAxisIntersections(char *func, Vector2 roots[], bool isXAxis)
         return count;
     }
 }
+
+bool blinkingCursor()
+{
+    return ((int)(GetTime() * 2) % 2) == 0;
+}

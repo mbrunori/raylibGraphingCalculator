@@ -6,16 +6,18 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <time.h>
 
-#define menuFontSize 28
 #define graphicFontSize 16
-#define MAX_FUNCTIONS 6
+#define MAX_FUNCTIONS 12
 
 #define PARAM_COUNT 4
 #define BUFFER_SIZE 32
 
 #define gSolveOptions 3
 #define menuScenesNum 2
+
+extern int screenWidth, screenHeight;
 
 //enum representing the possible scenes in the applications
 typedef enum

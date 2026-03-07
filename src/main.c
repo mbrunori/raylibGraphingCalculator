@@ -7,12 +7,13 @@
 #include "gui.h"
 #include "logic.h"
 
-#define maxLines 8
+#define maxLines 16
 #define maxLineLenght 300
 
 int main(int argc, char const *argv[])
 {
-    InitWindow(screenWidth * screenScale, screenHeight * screenScale, "window");
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    InitWindow(800, 450, "graphing calculator");
     SetExitKey(0); //disable exit key
 
     Scene currentScene = MENU;

@@ -1,8 +1,8 @@
 #include "gui.h"
 
 
-const char *scenesName[menuScenesNum] = {"1. Graphic", "2. Exit"};
-const char *gSolveOptionsName[gSolveOptions] = {"1. Intersect", "2. Roots", "3. Y-Intercepts"};
+const char *scenesName[menuScenesNum] = {"Graphic", "Exit"};
+const char *gSolveOptionsName[gSolveOptions] = {"Intersect", "Roots", "Y-Intercepts"};
 
 // implements the general menuSample() function for the main menu
 void menu(Scene *nextScene)
@@ -20,10 +20,11 @@ void menu(Scene *nextScene)
 // draws the buttons in menu, they can be hovered and changes colors when they are so
 void drawMenuButton(const char *text, Vector2 position, bool isClicked)
 {
-    Color textBackGroundColor = isClicked ? SKYBLUE : BLANK;
-    int textWidth = MeasureText(text, menuFontSize);
-    DrawRectangle(position.x, position.y, textWidth + 2, menuFontSize, textBackGroundColor);
-    DrawText(text, position.x, position.y, menuFontSize, BLACK);
+    int fontSize = GetScreenWidth()*0.058;
+    Color textBackGroundColor = isClicked ? BLACK : BLANK;
+    int textWidth = MeasureText(text, fontSize);
+    DrawRectangle(position.x, position.y + fontSize - 5, textWidth + 2, 5, textBackGroundColor);
+    DrawText(text, position.x, position.y, fontSize, BLACK);
 }
 
 // the whole scene in which graphics are drew, it's a variadic function. allowing virtually infinite functions as parameters
@@ -87,8 +88,8 @@ void drawFunction(const char *rpn, Color color)
 void drawAxes()
 {
     // Calculate window width and height in pixels (considering scale)
-    float width = screenWidth * screenScale;
-    float height = screenHeight * screenScale;
+    float width = GetScreenWidth();
+    float height = GetScreenHeight();
 
     // Calculate pixel coordinates of the mathematical origin (0,0)
     float x0 = -xMin / (xMax - xMin) * width;
@@ -180,6 +181,12 @@ void inputScene(Scene *nextScene, char ***expressions, int *count)
         DrawText(label, 20, 10, 20, color);
         DrawText(buffer, 65, 10, 20, palette[selected % paletteSize]);
 
+        int lastCharPos = 66 + MeasureText(buffer, 20);
+        if(blinkingCursor())
+        {
+            DrawRectangle(lastCharPos, 10, 5, 20, Fade(BLACK, 0.2));
+        }
+
         if (IsKeyPressed(KEY_ENTER))
         {
             strcpy((*expressions)[selected], buffer);
@@ -261,6 +268,7 @@ void inputScene(Scene *nextScene, char ***expressions, int *count)
 // vWindow scene, you can set x and y max and min
 void vWindowScene(Scene *nextScene)
 {
+    int fontSize = GetScreenWidth()*0.035;
     static int selected = 0;
     static bool editing = false;
     static char buffer[32] = "";
@@ -322,6 +330,7 @@ void vWindowScene(Scene *nextScene)
     {
         bool isSelected = (i == selected);
         Color color = BLACK;
+        int lineSpacing = 60;
 
         char valText[32];
 
@@ -329,22 +338,24 @@ void vWindowScene(Scene *nextScene)
 
         if (isSelected)
         {
-            int textWidth = MeasureText(labels[i], menuFontSize) + MeasureText(valText, menuFontSize);
-            DrawRectangle(5, 40 + 30 * i, textWidth + 2, menuFontSize, SKYBLUE);
+            int textWidth = MeasureText(labels[i], fontSize) + MeasureText(valText, fontSize);
+            DrawRectangle(10, lineSpacing -1 + 30 * i + fontSize, textWidth + 20, 4, BLACK);
         }
-        DrawText(labels[i], 10, 40 + 30 * i, 20, color);
+        DrawText(labels[i], 10, lineSpacing + 30 * i, fontSize, color);
 
         if (isSelected && editing)
         {
-            DrawText(buffer, 80, 40 + 30 * i, 20, BLACK);
-            if ((int)GetTime() % 2 == 0)
+            //TODO solve this cursor bug
+            DrawText(buffer, 100, lineSpacing + 30 * i, fontSize, BLACK);
+            int lastCharPos = MeasureText(buffer, fontSize) + MeasureText(labels[i], fontSize) + 25;
+            if(blinkingCursor())
             {
-                DrawText("|", 80 + (MeasureText(buffer, menuFontSize)*0.8), 40 + 30 * i, 20, BLACK);
+                DrawRectangle(lastCharPos, lineSpacing + 30 * i, 5, fontSize, Fade(BLACK, 0.6));
             }
         }
 
         else
-            DrawText(valText, 80, 40 + 30 * i, 20, BLACK);
+            DrawText(valText, 100, lineSpacing + 30 * i, fontSize, BLACK);
     }
 }
 
@@ -645,7 +656,8 @@ void gSolveScene(Scene *nextScene, int *count, char ***expressions)
 
 void menuSample(const char **optionsName, int optionsNum, int *selected)
 {
-    Vector2 startingPos = {20, 20};
+    int fontSize = GetScreenWidth()*0.058;
+    Vector2 startingPos = {0, 20};
 
     // Navigation
     if (IsKeyPressed(KEY_DOWN))
@@ -657,7 +669,8 @@ void menuSample(const char **optionsName, int optionsNum, int *selected)
     // Draw menu
     for (int i = 0; i < optionsNum; i++)
     {
-        Vector2 btnPos = {startingPos.x, startingPos.y + i * menuFontSize};
+        startingPos.x = (GetScreenWidth() - MeasureText(optionsName[i], fontSize))/2; //center
+        Vector2 btnPos = {startingPos.x, startingPos.y + i * fontSize * 1.2f};
         drawMenuButton(optionsName[i], btnPos, *selected == i);
     }
 }
